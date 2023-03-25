@@ -1,23 +1,4 @@
 #include "monty.h"
-#include <ctype.h>
-
-/**
- * _isdigit - checks if string is a number
- * @str: (char *) string
- * Return: 1 if string is a number, otherwise -1
-*/
-int _isdigit(char *str)
-{
-	int i = 0;
-
-	while (str[i])
-	{
-		if (!(isdigit(str[i])))
-			return (-1);
-		i++;
-	}
-	return (1);
-}
 
 /**
  * push - pushes an element to the stack
@@ -62,21 +43,18 @@ void push(stack_t **stack, unsigned int line_num)
  * @stack: double pointer to head node of list
  * @line_num: line number of bytecode file
 */
-void pall(stack_t **stack, unsigned int line_num __attribute__((__unused__)))
+void pall(stack_t **stack, unsigned int line_num)
 {
 	stack_t *temp;
+	(void)line_num;
 
-	if (!(*stack))
-		return;
-
-	temp = (*stack);
+	temp = *stack;
 	while (temp)
 	{
 		printf("%d\n", temp->n);
 		temp = temp->next;
 	}
 }
-
 
 /**
  * pint - prints element at the top of a list
@@ -91,4 +69,54 @@ void pint(stack_t **stack, unsigned int line_num)
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
+}
+
+/**
+ * pop - removes the top element of the stack
+ * @stack: double pointer to head node of list
+ * @line_num: line number of bytecode file
+*/
+void pop(stack_t **stack, unsigned int line_num)
+{
+	stack_t *temp;
+
+	if (!(*stack))
+	{
+		printf("L%u: can't pop an empty stack\n", line_num);
+		exit(EXIT_FAILURE);
+	}
+	temp = *stack;
+	if (!(*stack)->next)
+		*stack = NULL;
+	else
+		*stack = (*stack)->next, (*stack)->prev = NULL;
+	free(temp);
+}
+
+/**
+ * swap - swaps the top two elements of the stack
+ * @stack: double pointer to head node of list
+ * @line_num: line number of bytecode file
+*/
+void swap(stack_t **stack, unsigned int line_num)
+{
+	stack_t *temp;
+
+	if (!(*stack)->next)
+	{
+		printf("L%u: can't swap, stack too short\n", line_num);
+		exit(EXIT_FAILURE);
+	}
+	temp = (*stack)->next;
+	if (temp->next) /* when stack contains more than 2 element */
+	{
+		(*stack)->next = temp->next;
+		temp->next->prev = *stack;
+	}
+	else /* when stack contains only two elements */
+		(*stack)->next = NULL;
+	(*stack)->prev = temp;
+	temp->next = *stack;
+	temp->prev = NULL;
+	*stack = temp;
 }

@@ -57,6 +57,9 @@ FILE *check_args(int, char **);
 void (*get_ops(char *))(stack_t **, unsigned int);
 void init_monty(void);
 
+/* in util.c */
+int _isdigit(char *);
+
 extern monty_t monty;
 monty_t monty;
 
@@ -64,5 +67,7 @@ monty_t monty;
 void push(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);
 void pint(stack_t **, unsigned int);
+void pop(stack_t **, unsigned int);
+void swap(stack_t **, unsigned int);
 
 #endif

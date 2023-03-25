@@ -13,6 +13,8 @@ void (*get_ops(char *opcode))(stack_t **stack, unsigned int line_num)
 		{"push", push},
 		{"pall", pall},
 		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
 		{NULL, NULL},
 	};
 
