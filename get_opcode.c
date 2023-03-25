@@ -5,7 +5,7 @@
  * @opcode: opcode from bytecode file
  * Return: NULL if function is not found
 */
-void (*get_ops(char *opcode))(stack_t **stack, unsigned int line_num)
+void (*get_ops(char *opcode))(stack_t **, unsigned int)
 {
 	int i = 0;
 

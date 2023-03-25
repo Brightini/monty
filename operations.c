@@ -3,9 +3,9 @@
 /**
  * push - pushes an element to the stack
  * @stack: double pointer to head node of list
- * @line_num: line number of bytecode file
+ * @ln: line number of bytecode file
 */
-void push(stack_t **stack, unsigned int line_num)
+void push(stack_t **stack, unsigned int ln)
 {
 	stack_t *new_node;
 	int data;
@@ -13,13 +13,13 @@ void push(stack_t **stack, unsigned int line_num)
 	new_node = malloc(sizeof(size_t));
 	if (!new_node)
 	{
-		printf("Error: malloc failed\n");
+		dprintf(STDERR_FILENO, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
 
 	if (!monty.arg || (_isdigit(monty.arg) == -1))
 	{
-		printf("L%u: usage: push integer\n", line_num);
+		dprintf(STDERR_FILENO, "L%u: usage: push integer\n", ln);
 		exit(EXIT_FAILURE);
 	}
 	data = atoi(monty.arg);
@@ -41,12 +41,12 @@ void push(stack_t **stack, unsigned int line_num)
 /**
  * pall - prints all elements in a list
  * @stack: double pointer to head node of list
- * @line_num: line number of bytecode file
+ * @ln: line number of bytecode file
 */
-void pall(stack_t **stack, unsigned int line_num)
+void pall(stack_t **stack, unsigned int ln)
 {
 	stack_t *temp;
-	(void)line_num;
+	(void)ln;
 
 	temp = *stack;
 	while (temp)
@@ -59,13 +59,13 @@ void pall(stack_t **stack, unsigned int line_num)
 /**
  * pint - prints element at the top of a list
  * @stack: double pointer to head node of list
- * @line_num: line number of bytecode file
+ * @ln: line number of bytecode file
 */
-void pint(stack_t **stack, unsigned int line_num)
+void pint(stack_t **stack, unsigned int ln)
 {
 	if (!(*stack))
 	{
-		printf("L%u: can't pint, stack empty\n", line_num);
+		dprintf(STDERR_FILENO, "L%u: can't pint, stack empty\n", ln);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);
@@ -74,15 +74,15 @@ void pint(stack_t **stack, unsigned int line_num)
 /**
  * pop - removes the top element of the stack
  * @stack: double pointer to head node of list
- * @line_num: line number of bytecode file
+ * @ln: line number of bytecode file
 */
-void pop(stack_t **stack, unsigned int line_num)
+void pop(stack_t **stack, unsigned int ln)
 {
 	stack_t *temp;
 
 	if (!(*stack))
 	{
-		printf("L%u: can't pop an empty stack\n", line_num);
+		dprintf(STDERR_FILENO, "L%u: can't pop an empty stack\n", ln);
 		exit(EXIT_FAILURE);
 	}
 	temp = *stack;
@@ -96,15 +96,15 @@ void pop(stack_t **stack, unsigned int line_num)
 /**
  * swap - swaps the top two elements of the stack
  * @stack: double pointer to head node of list
- * @line_num: line number of bytecode file
+ * @ln: line number of bytecode file
 */
-void swap(stack_t **stack, unsigned int line_num)
+void swap(stack_t **stack, unsigned int ln)
 {
 	stack_t *temp;
 
 	if (!(*stack) || !(*stack)->next)
 	{
-		printf("L%u: can't swap, stack too short\n", line_num);
+		dprintf(STDERR_FILENO, "L%u: can't swap, stack too short\n", ln);
 		exit(EXIT_FAILURE);
 	}
 	temp = (*stack)->next;

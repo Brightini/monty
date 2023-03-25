@@ -6,7 +6,7 @@
 void init_monty(void)
 {
 	monty.arg = NULL;
-	monty.line_num = 0;
+	monty.ln = 0;
 	monty.stack = NULL;
 }
 
@@ -56,18 +56,18 @@ int main(int ac, char **av)
 
 	while ((flag = getline(&lineptr, &n, fp) != -1))
 	{
-		monty.line_num++;
+		monty.ln++;
 		opcode = strtok(lineptr, DELIM);
 		if (opcode)
 		{
 			func = get_ops(opcode);
 			if (!func)
 			{
-				printf("L%d: unknown instruction %s\n", monty.line_num, opcode);
+				dprintf(2, "L%d: unknown instruction %s\n", monty.ln, opcode);
 				exit(EXIT_FAILURE);
 			}
 			monty.arg = strtok(NULL, DELIM);
-			func(&monty.stack, monty.line_num);
+			func(&monty.stack, monty.ln);
 		}
 	}
 	free(lineptr);
