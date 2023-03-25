@@ -62,18 +62,12 @@ void push(stack_t **stack, unsigned int line_num)
  * @stack: double pointer to head node of list
  * @line_num: line number of bytecode file
 */
-void pall(stack_t **stack, unsigned int line_num)
+void pall(stack_t **stack, unsigned int line_num __attribute__((__unused__)))
 {
 	stack_t *temp;
 
 	if (!(*stack))
 		return;
-
-	if (monty.arg)
-	{
-		printf("L%u: usage: pall\n", line_num);
-		exit(EXIT_FAILURE);
-	}
 
 	temp = (*stack);
 	while (temp)
@@ -81,4 +75,20 @@ void pall(stack_t **stack, unsigned int line_num)
 		printf("%d\n", temp->n);
 		temp = temp->next;
 	}
+}
+
+
+/**
+ * pint - prints element at the top of a list
+ * @stack: double pointer to head node of list
+ * @line_num: line number of bytecode file
+*/
+void pint(stack_t **stack, unsigned int line_num)
+{
+	if (!(*stack))
+	{
+		printf("L%u: can't pint, stack empty\n", line_num);
+		exit(EXIT_FAILURE);
+	}
+	printf("%d\n", (*stack)->n);
 }

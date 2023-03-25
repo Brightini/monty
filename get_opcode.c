@@ -12,6 +12,7 @@ void (*get_ops(char *opcode))(stack_t **stack, unsigned int line_num)
 	instruction_t op_list[] = {
 		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL},
 	};
 
